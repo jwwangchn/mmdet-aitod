@@ -1,5 +1,5 @@
 """
-Faster R-CNN with Normalized GIOU Assigner
+Faster R-CNN with DIOU Assigner
 
 Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.052
 Average Precision  (AP) @[ IoU=0.25      | area=   all | maxDets=1500 ] = -1.000

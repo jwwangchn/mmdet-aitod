@@ -88,10 +88,11 @@ def bbox_overlaps(bboxes1, bboxes2, mode='iou', is_aligned=False, eps=1e-6, cons
         return ious
     
     # calculate gious
-    enclose_wh = (enclosed_rb - enclosed_lt).clamp(min=0)
-    enclose_area = enclose_wh[..., 0] * enclose_wh[..., 1]
-    enclose_area = torch.max(enclose_area, eps)
-    gious = ious - (enclose_area - union) / enclose_area
+    if mode in ['giou', 'normalized_giou', 'ciou', 'diou']:
+        enclose_wh = (enclosed_rb - enclosed_lt).clamp(min=0)
+        enclose_area = enclose_wh[..., 0] * enclose_wh[..., 1]
+        enclose_area = torch.max(enclose_area, eps)
+        gious = ious - (enclose_area - union) / enclose_area
 
     if mode == 'giou':
         return gious

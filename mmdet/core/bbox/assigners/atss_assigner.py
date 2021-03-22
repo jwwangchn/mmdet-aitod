@@ -23,10 +23,12 @@ class ATSSAssigner(BaseAssigner):
     def __init__(self,
                  topk,
                  iou_calculator=dict(type='BboxOverlaps2D'),
-                 ignore_iof_thr=-1):
+                 ignore_iof_thr=-1,
+                 assign_metric='iou'):
         self.topk = topk
         self.iou_calculator = build_iou_calculator(iou_calculator)
         self.ignore_iof_thr = ignore_iof_thr
+        self.assign_metric = assign_metric
 
     # https://github.com/sfzhang15/ATSS/blob/master/atss_core/modeling/rpn/atss/loss.py
 
@@ -68,7 +70,7 @@ class ATSSAssigner(BaseAssigner):
         num_gt, num_bboxes = gt_bboxes.size(0), bboxes.size(0)
 
         # compute iou between all bbox and gt
-        overlaps = self.iou_calculator(bboxes, gt_bboxes)
+        overlaps = self.iou_calculator(bboxes, gt_bboxes, mode=self.assign_metric)
 
         # assign 0 by default
         assigned_gt_inds = overlaps.new_full((num_bboxes, ),

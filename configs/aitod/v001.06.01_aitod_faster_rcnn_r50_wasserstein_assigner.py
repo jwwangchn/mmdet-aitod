@@ -1,6 +1,25 @@
 """
-Faster R-CNN with Normalized GIOU Assigner
+Faster R-CNN with Normalized Wasserstein Assigner
 
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.149
+Average Precision  (AP) @[ IoU=0.25      | area=   all | maxDets=1500 ] = -1.000
+Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.433
+Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1500 ] = 0.087
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=verytiny | maxDets=1500 ] = 0.072
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=  tiny | maxDets=1500 ] = 0.174
+Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1500 ] = 0.214
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1500 ] = 0.242
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.287
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.310
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.315
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=verytiny | maxDets=1500 ] = 0.129
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=  tiny | maxDets=1500 ] = 0.334
+Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1500 ] = 0.359
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1500 ] = 0.344
+Optimal LRP             @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.854
+Optimal LRP Loc         @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.306
+Optimal LRP FP          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.455
+Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.513
 
 """
 
