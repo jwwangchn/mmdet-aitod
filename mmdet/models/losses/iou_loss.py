@@ -218,6 +218,57 @@ def ciou_loss(pred, target, eps=1e-7):
     loss = 1 - cious
     return loss
 
+@mmcv.jit(derivate=True, coderize=True)
+@weighted_loss
+def wasserstein_loss(pred, target, eps=1e-7, mode='exp', gamma=1):
+    r"""`Implementation of paper `Enhancing Geometric Factors into
+    Model Learning and Inference for Object Detection and Instance
+    Segmentation <https://arxiv.org/abs/2005.03572>`_.
+
+    Code is modified from https://github.com/Zzh-tju/CIoU.
+
+    Args:
+        pred (Tensor): Predicted bboxes of format (x1, y1, x2, y2),
+            shape (n, 4).
+        target (Tensor): Corresponding gt bboxes, shape (n, 4).
+        eps (float): Eps to avoid log(0).
+    Return:
+        Tensor: Loss tensor.
+    """
+    center1 = (pred[:, :2] + pred[:, 2:]) / 2
+    center2 = (target[:, :2] + target[:, 2:]) / 2
+
+    whs = center1[:, :2] - center2[:, :2]
+
+    center_distance = whs[:, 0] * whs[:, 0] + whs[:, 1] * whs[:, 1] + eps #
+
+    w1 = pred[:, 2] - pred[:, 0]  + eps
+    h1 = pred[:, 3] - pred[:, 1]  + eps
+    w2 = target[:, 2] - target[:, 0]  + eps
+    h2 = target[:, 3] - target[:, 1]  + eps
+
+    wh_distance = ((w1 - w2) ** 2 + (h1 - h2) ** 2) / 4
+
+    wasserstein_2 = center_distance + wh_distance
+
+    if mode == 'exp':
+        normalized_wasserstein = torch.exp(-torch.sqrt(wasserstein_2)/12.8)
+        wloss = 1 - normalized_wasserstein
+    
+    if mode == 'sqrt':
+        wloss = torch.sqrt(wasserstein_2)
+    
+    if mode == 'log':
+        wloss = torch.log(wasserstein_2 + 1)
+
+    if mode == 'norm_sqrt':
+        wloss = 1 - 1 / (gamma + wasserstein_2)
+
+    if mode == 'w2':
+        wloss = wasserstein_2
+
+    return wloss
+
 
 @LOSSES.register_module()
 class IoULoss(nn.Module):
@@ -434,3 +485,45 @@ class CIoULoss(nn.Module):
             avg_factor=avg_factor,
             **kwargs)
         return loss
+
+@LOSSES.register_module()
+class WassersteinLoss(nn.Module):
+
+    def __init__(self, eps=1e-6, reduction='mean', loss_weight=1.0, mode='exp', gamma=2):
+        super(WassersteinLoss, self).__init__()
+        self.eps = eps
+        self.reduction = reduction
+        self.loss_weight = loss_weight
+        self.mode = mode
+        self.gamma = gamma
+
+    def forward(self,
+                pred,
+                target,
+                weight=None,
+                avg_factor=None,
+                reduction_override=None,
+                **kwargs):
+        if weight is not None and not torch.any(weight > 0):
+            return (pred * weight).sum()  # 0
+        assert reduction_override in (None, 'none', 'mean', 'sum')
+        reduction = (
+            reduction_override if reduction_override else self.reduction)
+        if weight is not None and weight.dim() > 1:
+            # TODO: remove this in the future
+            # reduce the weight of shape (n, 4) to (n,) to match the
+            # giou_loss of shape (n,)
+            assert weight.shape == pred.shape
+            weight = weight.mean(-1)
+        loss = self.loss_weight * wasserstein_loss(
+            pred,
+            target,
+            weight,
+            eps=self.eps,
+            reduction=reduction,
+            avg_factor=avg_factor,
+            mode=self.mode,
+            gamma=self.gamma,
+            **kwargs)
+        return loss
+

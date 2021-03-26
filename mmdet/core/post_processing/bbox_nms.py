@@ -81,11 +81,7 @@ def multiclass_nms(multi_bboxes,
         else:
             return bboxes, labels
 
-    metric_type = nms_cfg.pop('metric', 'iou')
-    if metric_type == 'wasserstein':
-        pass
-    else:
-        dets, keep = batched_nms(bboxes, scores, labels, nms_cfg)
+    dets, keep = batched_nms(bboxes, scores, labels, nms_cfg)
 
     if max_num > 0:
         dets = dets[:max_num]

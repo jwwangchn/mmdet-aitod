@@ -1,6 +1,26 @@
 """
 CascadeRPN
 
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.123
+Average Precision  (AP) @[ IoU=0.25      | area=   all | maxDets=1500 ] = -1.000
+Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.335
+Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1500 ] = 0.078
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=verytiny | maxDets=1500 ] = 0.039
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=  tiny | maxDets=1500 ] = 0.129
+Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1500 ] = 0.181
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1500 ] = 0.263
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.256
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.279
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.284
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=verytiny | maxDets=1500 ] = 0.093
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=  tiny | maxDets=1500 ] = 0.291
+Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1500 ] = 0.357
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1500 ] = 0.431
+Optimal LRP             @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.881
+Optimal LRP Loc         @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.301
+Optimal LRP FP          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.502
+Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.638
+
 """
 
 _base_ = '../faster_rcnn/faster_rcnn_r50_caffe_fpn_1x_aitod.py'

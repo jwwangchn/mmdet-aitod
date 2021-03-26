@@ -1,23 +1,25 @@
-""" PAA Baseline
-Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.100
+""" PAA with normalized wasserstein assigner
+
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.077
 Average Precision  (AP) @[ IoU=0.25      | area=   all | maxDets=1500 ] = -1.000
-Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.265
-Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1500 ] = 0.067
-Average Precision  (AP) @[ IoU=0.50:0.95 | area=verytiny | maxDets=1500 ] = 0.035
-Average Precision  (AP) @[ IoU=0.50:0.95 | area=  tiny | maxDets=1500 ] = 0.105
-Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1500 ] = 0.131
-Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1500 ] = 0.221
-Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.252
-Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.292
-Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.338
-Average Recall     (AR) @[ IoU=0.50:0.95 | area=verytiny | maxDets=1500 ] = 0.130
-Average Recall     (AR) @[ IoU=0.50:0.95 | area=  tiny | maxDets=1500 ] = 0.359
-Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1500 ] = 0.411
-Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1500 ] = 0.466
-Optimal LRP             @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.967
-Optimal LRP Loc         @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.351
-Optimal LRP FP          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.924
-Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.463
+Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.215
+Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1500 ] = 0.046
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=verytiny | maxDets=1500 ] = 0.015
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=  tiny | maxDets=1500 ] = 0.055
+Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1500 ] = 0.138
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1500 ] = 0.293
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.196
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.220
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.230
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=verytiny | maxDets=1500 ] = 0.037
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=  tiny | maxDets=1500 ] = 0.203
+Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1500 ] = 0.353
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1500 ] = 0.459
+Optimal LRP             @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.938
+Optimal LRP Loc         @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.314
+Optimal LRP FP          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.736
+Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.676
+
 """
 _base_ = [
     '../_base_/datasets/aitod_detection.py',
@@ -79,7 +81,9 @@ model = dict(
             neg_iou_thr=0.1,
             min_pos_iou=0,
             ignore_iof_thr=-1,
-            gpu_assign_thr=512),
+            gpu_assign_thr=512,
+            iou_calculator=dict(type='BboxDistanceMetric'),
+            assign_metric='wasserstein'),
         allowed_border=-1,
         pos_weight=-1,
         debug=False),

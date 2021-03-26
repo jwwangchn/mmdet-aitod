@@ -24,7 +24,7 @@ class AITODDataset(CocoDataset):
                  metric='bbox',
                  logger=None,
                  jsonfile_prefix=None,
-                 classwise=False,
+                 classwise=True,
                  proposal_nums=(100, 300, 1500),
                  iou_thrs=None,
                  metric_items=None):
