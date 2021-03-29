@@ -262,7 +262,7 @@ def wasserstein_loss(pred, target, eps=1e-7, mode='exp', gamma=1):
         wloss = torch.log(wasserstein_2 + 1)
 
     if mode == 'norm_sqrt':
-        wloss = 1 - 1 / (gamma + wasserstein_2)
+        wloss = 1 - 1 / (gamma + torch.sqrt(wasserstein_2))
 
     if mode == 'w2':
         wloss = wasserstein_2

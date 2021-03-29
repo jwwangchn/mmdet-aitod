@@ -1,4 +1,33 @@
 """
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.106
+Average Precision  (AP) @[ IoU=0.25      | area=   all | maxDets=1500 ] = -1.000
+Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.257
+Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1500 ] = 0.074
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=verytiny | maxDets=1500 ] = 0.000
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=  tiny | maxDets=1500 ] = 0.074
+Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1500 ] = 0.226
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1500 ] = 0.326
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.169
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.173
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.173
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=verytiny | maxDets=1500 ] = 0.000
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=  tiny | maxDets=1500 ] = 0.109
+Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1500 ] = 0.374
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1500 ] = 0.445
+Optimal LRP             @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.897
+Optimal LRP Loc         @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.285
+Optimal LRP FP          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.455
+Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.728
+# Class-specific LRP-Optimal Thresholds # 
+ [0.698 0.523 0.594 0.555 0.77  0.433 0.459   nan]
+2021-03-26 16:55:52,747 - mmdet - INFO - 
++----------+-------+---------------+-------+--------------+-------+
+| category | AP    | category      | AP    | category     | AP    |
++----------+-------+---------------+-------+--------------+-------+
+| airplane | 0.218 | bridge        | 0.019 | storage-tank | 0.192 |
+| ship     | 0.190 | swimming-pool | 0.078 | vehicle      | 0.128 |
+| person   | 0.042 | wind-mill     | 0.000 | None         | None  |
++----------+-------+---------------+-------+--------------+-------+
 
 
 """
