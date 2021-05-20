@@ -1,7 +1,7 @@
 """
 Faster R-CNN with CIOU Assigner
 
-Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.057
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.059
 Average Precision  (AP) @[ IoU=0.25      | area=   all | maxDets=1500 ] = -1.000
 Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.125
 Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1500 ] = 0.046
@@ -20,6 +20,24 @@ Optimal LRP             @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.939
 Optimal LRP Loc         @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.280
 Optimal LRP FP          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.725
 Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.831
+# Class-specific LRP-Optimal Thresholds # 
+ [0.802 0.756 0.916 0.869 0.907 0.512 0.35  0.333]
+ 
++----------+-------+---------------+-------+--------------+-------+
+| category | AP    | category      | AP    | category     | AP    |
++----------+-------+---------------+-------+--------------+-------+
+| airplane | 0.145 | bridge        | 0.003 | storage-tank | 0.112 |
+| ship     | 0.106 | swimming-pool | 0.029 | vehicle      | 0.050 |
+| person   | 0.025 | wind-mill     | 0.000 | None         | None  |
++----------+-------+---------------+-------+--------------+-------+
+
++----------+-------+---------------+-------+--------------+-------+
+| category | oLRP  | category      | oLRP  | category     | oLRP  |
++----------+-------+---------------+-------+--------------+-------+
+| airplane | 0.860 | bridge        | 0.996 | storage-tank | 0.887 |
+| ship     | 0.902 | swimming-pool | 0.952 | vehicle      | 0.948 |
+| person   | 0.969 | wind-mill     | 0.999 | None         | None  |
++----------+-------+---------------+-------+--------------+-------+
 """
 
 _base_ = [

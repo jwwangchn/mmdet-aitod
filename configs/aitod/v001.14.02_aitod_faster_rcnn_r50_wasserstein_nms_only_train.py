@@ -1,7 +1,7 @@
 """
 Faster R-CNN with Wasserstein NMS (only train)
 
-Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.105
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.107
 Average Precision  (AP) @[ IoU=0.25      | area=   all | maxDets=1500 ] = -1.000
 Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.254
 Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1500 ] = 0.072
@@ -22,13 +22,21 @@ Optimal LRP FP          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.510
 Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.721
 # Class-specific LRP-Optimal Thresholds # 
  [0.529 0.525 0.446 0.413 0.408 0.263 0.238 0.065]
-2021-03-23 22:31:30,313 - mmdet - INFO - 
+
 +----------+-------+---------------+-------+--------------+-------+
 | category | AP    | category      | AP    | category     | AP    |
 +----------+-------+---------------+-------+--------------+-------+
 | airplane | 0.212 | bridge        | 0.028 | storage-tank | 0.187 |
 | ship     | 0.186 | swimming-pool | 0.073 | vehicle      | 0.121 |
 | person   | 0.045 | wind-mill     | 0.000 | None         | None  |
++----------+-------+---------------+-------+--------------+-------+
+
++----------+-------+---------------+-------+--------------+-------+
+| category | oLRP  | category      | oLRP  | category     | oLRP  |
++----------+-------+---------------+-------+--------------+-------+
+| airplane | 0.807 | bridge        | 0.970 | storage-tank | 0.827 |
+| ship     | 0.834 | swimming-pool | 0.921 | vehicle      | 0.883 |
+| person   | 0.952 | wind-mill     | 0.999 | None         | None  |
 +----------+-------+---------------+-------+--------------+-------+
 
 """

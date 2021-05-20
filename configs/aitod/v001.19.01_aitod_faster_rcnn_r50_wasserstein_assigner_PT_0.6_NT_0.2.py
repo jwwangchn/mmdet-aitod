@@ -1,7 +1,7 @@
 """
 Faster R-CNN with Normalized Wasserstein Assigner
 
-Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.108
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.120
 Average Precision  (AP) @[ IoU=0.25      | area=   all | maxDets=1500 ] = -1.000
 Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.338
 Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1500 ] = 0.056
@@ -18,11 +18,11 @@ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1500 ] = 0.367
 Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1500 ] = 0.339
 Optimal LRP             @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.885
 Optimal LRP Loc         @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.310
-Optimal LRP FP          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.558
-Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.569
+Optimal LRP FP          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.560
+Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.568
 # Class-specific LRP-Optimal Thresholds # 
- [0.794 0.973 0.971 0.984 0.671 0.916 0.95  0.99 ]
-2021-03-25 02:28:48,496 - mmdet - INFO - 
+ [0.794 0.971 0.971 0.984 0.671 0.916 0.95  0.99 ]
+
 +----------+-------+---------------+-------+--------------+-------+
 | category | AP    | category      | AP    | category     | AP    |
 +----------+-------+---------------+-------+--------------+-------+
@@ -30,6 +30,15 @@ Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.569
 | ship     | 0.259 | swimming-pool | 0.069 | vehicle      | 0.153 |
 | person   | 0.055 | wind-mill     | 0.031 | None         | None  |
 +----------+-------+---------------+-------+--------------+-------+
+
++----------+-------+---------------+-------+--------------+-------+
+| category | oLRP  | category      | oLRP  | category     | oLRP  |
++----------+-------+---------------+-------+--------------+-------+
+| airplane | 0.901 | bridge        | 0.911 | storage-tank | 0.813 |
+| ship     | 0.759 | swimming-pool | 0.924 | vehicle      | 0.858 |
+| person   | 0.944 | wind-mill     | 0.967 | None         | None  |
++----------+-------+---------------+-------+--------------+-------+
+
 
 """
 

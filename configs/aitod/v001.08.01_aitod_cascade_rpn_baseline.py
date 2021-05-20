@@ -1,7 +1,7 @@
 """
 CascadeRPN
 
-Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.123
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.133
 Average Precision  (AP) @[ IoU=0.25      | area=   all | maxDets=1500 ] = -1.000
 Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.335
 Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1500 ] = 0.078
@@ -20,7 +20,24 @@ Optimal LRP             @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.881
 Optimal LRP Loc         @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.301
 Optimal LRP FP          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.502
 Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.638
+# Class-specific LRP-Optimal Thresholds # 
+ [0.731 0.831 0.769 0.809 0.582 0.646 0.59  0.465]
 
++----------+-------+---------------+-------+--------------+-------+
+| category | AP    | category      | AP    | category     | AP    |
++----------+-------+---------------+-------+--------------+-------+
+| airplane | 0.133 | bridge        | 0.051 | storage-tank | 0.291 |
+| ship     | 0.248 | swimming-pool | 0.033 | vehicle      | 0.214 |
+| person   | 0.064 | wind-mill     | 0.026 | None         | None  |
++----------+-------+---------------+-------+--------------+-------+
+
++----------+-------+---------------+-------+--------------+-------+
+| category | oLRP  | category      | oLRP  | category     | oLRP  |
++----------+-------+---------------+-------+--------------+-------+
+| airplane | 0.885 | bridge        | 0.945 | storage-tank | 0.746 |
+| ship     | 0.793 | swimming-pool | 0.951 | vehicle      | 0.817 |
+| person   | 0.940 | wind-mill     | 0.968 | None         | None  |
++----------+-------+---------------+-------+--------------+-------+
 """
 
 _base_ = '../faster_rcnn/faster_rcnn_r50_caffe_fpn_1x_aitod.py'

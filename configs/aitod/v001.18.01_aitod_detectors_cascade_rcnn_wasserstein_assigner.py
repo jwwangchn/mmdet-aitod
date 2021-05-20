@@ -1,5 +1,5 @@
 """
-Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.199
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.212
 Average Precision  (AP) @[ IoU=0.25      | area=   all | maxDets=1500 ] = -1.000
 Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.505
 Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1500 ] = 0.144
@@ -20,13 +20,21 @@ Optimal LRP FP          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.375
 Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.454
 # Class-specific LRP-Optimal Thresholds # 
  [0.329 0.808 0.866 0.844 0.546 0.624 0.728 0.757]
-2021-03-24 07:35:29,538 - mmdet - INFO - 
+
 +----------+-------+---------------+-------+--------------+-------+
 | category | AP    | category      | AP    | category     | AP    |
 +----------+-------+---------------+-------+--------------+-------+
 | airplane | 0.173 | bridge        | 0.179 | storage-tank | 0.327 |
 | ship     | 0.521 | swimming-pool | 0.127 | vehicle      | 0.207 |
 | person   | 0.084 | wind-mill     | 0.080 | None         | None  |
++----------+-------+---------------+-------+--------------+-------+
+
++----------+-------+---------------+-------+--------------+-------+
+| category | oLRP  | category      | oLRP  | category     | oLRP  |
++----------+-------+---------------+-------+--------------+-------+
+| airplane | 0.843 | bridge        | 0.828 | storage-tank | 0.725 |
+| ship     | 0.522 | swimming-pool | 0.874 | vehicle      | 0.821 |
+| person   | 0.918 | wind-mill     | 0.907 | None         | None  |
 +----------+-------+---------------+-------+--------------+-------+
 
 """

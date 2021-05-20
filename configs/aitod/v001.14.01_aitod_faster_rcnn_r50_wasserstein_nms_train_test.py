@@ -1,27 +1,43 @@
 """
 Faster R-CNN with Wasserstein NMS
 
-Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.037
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.105
 Average Precision  (AP) @[ IoU=0.25      | area=   all | maxDets=1500 ] = -1.000
-Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.075
-Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1500 ] = 0.033
+Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.242
+Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1500 ] = 0.077
 Average Precision  (AP) @[ IoU=0.50:0.95 | area=verytiny | maxDets=1500 ] = 0.000
-Average Precision  (AP) @[ IoU=0.50:0.95 | area=  tiny | maxDets=1500 ] = 0.052
-Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1500 ] = 0.093
-Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1500 ] = 0.066
-Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.148
-Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.168
-Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.180
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=  tiny | maxDets=1500 ] = 0.072
+Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1500 ] = 0.224
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1500 ] = 0.337
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.162
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.165
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.165
 Average Recall     (AR) @[ IoU=0.50:0.95 | area=verytiny | maxDets=1500 ] = 0.000
-Average Recall     (AR) @[ IoU=0.50:0.95 | area=  tiny | maxDets=1500 ] = 0.106
-Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1500 ] = 0.395
-Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1500 ] = 0.524
-Optimal LRP             @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.956
-Optimal LRP Loc         @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.269
-Optimal LRP FP          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.821
-Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.799
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=  tiny | maxDets=1500 ] = 0.096
+Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1500 ] = 0.354
+Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1500 ] = 0.473
+Optimal LRP             @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.901
+Optimal LRP Loc         @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.281
+Optimal LRP FP          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.445
+Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.738
+# Class-specific LRP-Optimal Thresholds # 
+ [0.574 0.472 0.503 0.315 0.545 0.221 0.206   nan]
 
++----------+-------+---------------+-------+--------------+-------+
+| category | AP    | category      | AP    | category     | AP    |
++----------+-------+---------------+-------+--------------+-------+
+| airplane | 0.196 | bridge        | 0.027 | storage-tank | 0.194 |
+| ship     | 0.191 | swimming-pool | 0.071 | vehicle      | 0.121 |
+| person   | 0.044 | wind-mill     | 0.000 | None         | None  |
++----------+-------+---------------+-------+--------------+-------+
 
++----------+-------+---------------+-------+--------------+-------+
+| category | oLRP  | category      | oLRP  | category     | oLRP  |
++----------+-------+---------------+-------+--------------+-------+
+| airplane | 0.835 | bridge        | 0.964 | storage-tank | 0.825 |
+| ship     | 0.831 | swimming-pool | 0.915 | vehicle      | 0.883 |
+| person   | 0.953 | wind-mill     | 1.000 | None         | None  |
++----------+-------+---------------+-------+--------------+-------+
 """
 
 _base_ = [

@@ -7,6 +7,8 @@ from .builder import IOU_CALCULATORS
 @IOU_CALCULATORS.register_module()
 class BboxDistanceMetric(object):
     """2D Overlaps (e.g. IoUs, GIoUs) Calculator."""
+    def __init__(self, constant=12.8):
+        self.constant = constant
 
     def __call__(self, bboxes1, bboxes2, mode='iou', is_aligned=False):
         """Calculate IoU between 2D bboxes.
@@ -33,7 +35,7 @@ class BboxDistanceMetric(object):
             bboxes2 = bboxes2[..., :4]
         if bboxes1.size(-1) == 5:
             bboxes1 = bboxes1[..., :4]
-        return bbox_overlaps(bboxes1, bboxes2, mode, is_aligned)
+        return bbox_overlaps(bboxes1, bboxes2, mode, is_aligned, constant=self.constant)
 
     def __repr__(self):
         """str: a string describing the module"""

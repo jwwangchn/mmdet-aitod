@@ -1,7 +1,7 @@
 """
 Faster R-CNN with Normalized Wasserstein Assigner
 
-Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.149
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.161
 Average Precision  (AP) @[ IoU=0.25      | area=   all | maxDets=1500 ] = -1.000
 Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.433
 Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1500 ] = 0.087
@@ -20,6 +20,24 @@ Optimal LRP             @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.854
 Optimal LRP Loc         @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.306
 Optimal LRP FP          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.455
 Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.513
+# Class-specific LRP-Optimal Thresholds # 
+ [0.554 0.955 0.912 0.921 0.659 0.791 0.835 0.921]
+
+ +----------+-------+---------------+-------+--------------+-------+
+| category | AP    | category      | AP    | category     | AP    |
++----------+-------+---------------+-------+--------------+-------+
+| airplane | 0.126 | bridge        | 0.137 | storage-tank | 0.260 |
+| ship     | 0.371 | swimming-pool | 0.070 | vehicle      | 0.190 |
+| person   | 0.069 | wind-mill     | 0.062 | None         | None  |
++----------+-------+---------------+-------+--------------+-------+
+
++----------+-------+---------------+-------+--------------+-------+
+| category | oLRP  | category      | oLRP  | category     | oLRP  |
++----------+-------+---------------+-------+--------------+-------+
+| airplane | 0.889 | bridge        | 0.873 | storage-tank | 0.782 |
+| ship     | 0.656 | swimming-pool | 0.927 | vehicle      | 0.834 |
+| person   | 0.932 | wind-mill     | 0.937 | None         | None  |
++----------+-------+---------------+-------+--------------+-------+
 
 """
 

@@ -1,6 +1,6 @@
 """
 Detectors Cascade RCNN
-Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.145
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.148
 Average Precision  (AP) @[ IoU=0.25      | area=   all | maxDets=1500 ] = -1.000
 Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.328
 Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1500 ] = 0.114
@@ -29,6 +29,15 @@ Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.672
 | ship     | 0.252 | swimming-pool | 0.120 | vehicle      | 0.148 |
 | person   | 0.059 | wind-mill     | 0.001 | None         | None  |
 +----------+-------+---------------+-------+--------------+-------+
+
++----------+-------+---------------+-------+--------------+-------+
+| category | oLRP  | category      | oLRP  | category     | oLRP  |
++----------+-------+---------------+-------+--------------+-------+
+| airplane | 0.757 | bridge        | 0.906 | storage-tank | 0.789 |
+| ship     | 0.780 | swimming-pool | 0.883 | vehicle      | 0.862 |
+| person   | 0.941 | wind-mill     | 0.995 | None         | None  |
++----------+-------+---------------+-------+--------------+-------+
+
 """
 
 _base_ = [

@@ -1,7 +1,7 @@
 """
-Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.122
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.124
 Average Precision  (AP) @[ IoU=0.25      | area=   all | maxDets=1500 ] = -1.000
-Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.280
+Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.279
 Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1500 ] = 0.095
 Average Precision  (AP) @[ IoU=0.50:0.95 | area=verytiny | maxDets=1500 ] = 0.000
 Average Precision  (AP) @[ IoU=0.50:0.95 | area=  tiny | maxDets=1500 ] = 0.080
@@ -12,12 +12,12 @@ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.177
 Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.177
 Average Recall     (AR) @[ IoU=0.50:0.95 | area=verytiny | maxDets=1500 ] = 0.000
 Average Recall     (AR) @[ IoU=0.50:0.95 | area=  tiny | maxDets=1500 ] = 0.106
-Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1500 ] = 0.398
+Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1500 ] = 0.399
 Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1500 ] = 0.450
-Optimal LRP             @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.884
-Optimal LRP Loc         @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.290
-Optimal LRP FP          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.473
-Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.701
+Optimal LRP             @[ IoU=0.50      | area=   all | maxDets=1500 ] = -1.000
+Optimal LRP Loc         @[ IoU=0.50      | area=   all | maxDets=1500 ] = -1.000
+Optimal LRP FP          @[ IoU=0.50      | area=   all | maxDets=1500 ] = -1.000
+Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] =
 # Class-specific LRP-Optimal Thresholds # 
  [0.673 0.356 0.492 0.412 0.486 0.369 0.374 0.054]
 2021-03-27 06:25:31,883 - mmdet - INFO - 
@@ -25,9 +25,10 @@ Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.701
 | category | AP    | category      | AP    | category     | AP    |
 +----------+-------+---------------+-------+--------------+-------+
 | airplane | 0.242 | bridge        | 0.049 | storage-tank | 0.200 |
-| ship     | 0.215 | swimming-pool | 0.108 | vehicle      | 0.129 |
+| ship     | 0.214 | swimming-pool | 0.108 | vehicle      | 0.129 |
 | person   | 0.049 | wind-mill     | 0.001 | None         | None  |
 +----------+-------+---------------+-------+--------------+-------+
+
 
 
 """

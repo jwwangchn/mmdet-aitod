@@ -1,7 +1,7 @@
 """
 Faster R-CNN + ATSS
 
-Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.106
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.109
 Average Precision  (AP) @[ IoU=0.25      | area=   all | maxDets=1500 ] = -1.000
 Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.255
 Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1500 ] = 0.076
@@ -21,6 +21,21 @@ Optimal LRP Loc         @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.310
 Optimal LRP FP          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.467
 Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.731
 
++----------+-------+---------------+-------+--------------+-------+
+| category | AP    | category      | AP    | category     | AP    |
++----------+-------+---------------+-------+--------------+-------+
+| airplane | 0.206 | bridge        | 0.020 | storage-tank | 0.203 |
+| ship     | 0.192 | swimming-pool | 0.077 | vehicle      | 0.126 |
+| person   | 0.043 | wind-mill     | 0.000 | None         | None  |
++----------+-------+---------------+-------+--------------+-------+
+
++----------+-------+---------------+-------+--------------+-------+
+| category | oLRP  | category      | oLRP  | category     | oLRP  |
++----------+-------+---------------+-------+--------------+-------+
+| airplane | 0.812 | bridge        | 0.976 | storage-tank | 0.816 |
+| ship     | 0.829 | swimming-pool | 0.921 | vehicle      | 0.880 |
+| person   | 0.954 | wind-mill     | 1.000 | None         | None  |
++----------+-------+---------------+-------+--------------+-------+
 
 """
 

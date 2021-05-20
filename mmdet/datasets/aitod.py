@@ -25,9 +25,11 @@ class AITODDataset(CocoDataset):
                  logger=None,
                  jsonfile_prefix=None,
                  classwise=True,
+                 classwise_lrp=True,
                  proposal_nums=(100, 300, 1500),
                  iou_thrs=None,
-                 metric_items=None):
+                 metric_items=None,
+                 with_lrp=True):
         """Evaluation in COCO protocol.
 
         Args:
@@ -125,7 +127,11 @@ class AITODDataset(CocoDataset):
                 'AR_vt@1500': 11,
                 'AR_t@1500': 12,
                 'AR_s@1500': 13,
-                'AR_m@1500': 14
+                'AR_m@1500': 14,
+                'oLRP': 15,
+                'oLRP_Localisation': 16,
+                'oLRP_false_positive': 17,
+                'oLRP_false_negative': 18
 
             }
             if metric_items is not None:
@@ -137,7 +143,7 @@ class AITODDataset(CocoDataset):
             if metric == 'proposal':
                 cocoEval.params.useCats = 0
                 cocoEval.evaluate()
-                cocoEval.accumulate()
+                cocoEval.accumulate(with_lrp=with_lrp)
                 cocoEval.summarize()
                 if metric_items is None:
                     metric_items = [
@@ -151,7 +157,7 @@ class AITODDataset(CocoDataset):
                     eval_results[item] = val
             else:
                 cocoEval.evaluate()
-                cocoEval.accumulate()
+                cocoEval.accumulate(with_lrp=with_lrp)
                 cocoEval.summarize()
                 if classwise:  # Compute per-category AP
                     # Compute per-category AP
@@ -186,10 +192,44 @@ class AITODDataset(CocoDataset):
                     table_data += [result for result in results_2d]
                     table = AsciiTable(table_data)
                     print_log('\n' + table.table, logger=logger)
+                
+                if classwise_lrp:  # Compute per-category AP
+                    # Compute per-category AP
+                    # from https://github.com/facebookresearch/detectron2/
+                    oLRPs = cocoEval.eval['olrp']
+                    # precision: (iou, recall, cls, area range, max dets)
+                    assert len(self.cat_ids) == oLRPs.shape[0]
+
+                    results_per_category = []
+                    for idx, catId in enumerate(self.cat_ids):
+                        # area range index 0: all area ranges
+                        # max dets index -1: typically 100 per image
+                        nm = self.coco.loadCats(catId)[0]
+                        olrp = oLRPs[idx, 0, -1]
+                        olrp = olrp[olrp > -1]
+                        if olrp.size:
+                            ap = np.mean(olrp)
+                        else:
+                            ap = float('nan')
+                        results_per_category.append(
+                            (f'{nm["name"]}', f'{float(ap):0.3f}'))
+
+                    num_columns = min(6, len(results_per_category) * 2)
+                    results_flatten = list(
+                        itertools.chain(*results_per_category))
+                    headers = ['category', 'oLRP'] * (num_columns // 2)
+                    results_2d = itertools.zip_longest(*[
+                        results_flatten[i::num_columns]
+                        for i in range(num_columns)
+                    ])
+                    table_data = [headers]
+                    table_data += [result for result in results_2d]
+                    table = AsciiTable(table_data)
+                    print_log('\n' + table.table, logger=logger)
 
                 if metric_items is None:
                     metric_items = [
-                        'mAP', 'mAP_50', 'mAP_75', 'mAP_vt', 'mAP_t', 'mAP_s', 'mAP_m'
+                        'mAP', 'mAP_50', 'mAP_75', 'mAP_vt', 'mAP_t', 'mAP_s', 'mAP_m', 'oLRP', 'oLRP_Localisation', 'oLRP_false_positive', 'oLRP_false_negative'
                     ]
 
                 for metric_item in metric_items:

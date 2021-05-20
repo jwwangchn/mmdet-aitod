@@ -5,8 +5,8 @@ from multiprocessing import Pool
 
 import matplotlib.pyplot as plt
 import numpy as np
-from pycocotools.coco import COCO
-from pycocotools.cocoeval import COCOeval
+from aitodpycocotools.coco import COCO
+from aitodpycocotools.cocoeval import COCOeval
 
 
 def makeplot(rs, ps, outDir, class_name, iou_type):
@@ -49,7 +49,7 @@ def makeplot(rs, ps, outDir, class_name, iou_type):
         plt.close(fig)
 
 
-def analyze_individual_category(k, cocoDt, cocoGt, catId, iou_type):
+def analyze_individual_category(k, cocoDt, cocoGt, catId, iou_type, max_det):
     nm = cocoGt.loadCats(catId)[0]
     print(f'--------------analyzing {k + 1}-{nm["name"]}---------------')
     ps_ = {}
@@ -74,7 +74,7 @@ def analyze_individual_category(k, cocoDt, cocoGt, catId, iou_type):
             gt.dataset['annotations'][idx]['category_id'] = catId
     cocoEval = COCOeval(gt, copy.deepcopy(dt), iou_type)
     cocoEval.params.imgIds = imgIds
-    cocoEval.params.maxDets = [100]
+    cocoEval.params.maxDets = [max_det]
     cocoEval.params.iouThrs = [.1]
     cocoEval.params.useCats = 1
     cocoEval.evaluate()
@@ -90,7 +90,7 @@ def analyze_individual_category(k, cocoDt, cocoGt, catId, iou_type):
             gt.dataset['annotations'][idx]['category_id'] = catId
     cocoEval = COCOeval(gt, copy.deepcopy(dt), iou_type)
     cocoEval.params.imgIds = imgIds
-    cocoEval.params.maxDets = [100]
+    cocoEval.params.maxDets = [max_det]
     cocoEval.params.iouThrs = [.1]
     cocoEval.params.useCats = 1
     cocoEval.evaluate()
@@ -100,7 +100,7 @@ def analyze_individual_category(k, cocoDt, cocoGt, catId, iou_type):
     return k, ps_
 
 
-def analyze_results(res_file, ann_file, res_types, out_dir):
+def analyze_results(res_file, ann_file, res_types, out_dir, max_det=100):
     for res_type in res_types:
         assert res_type in ['bbox', 'segm']
 
@@ -123,7 +123,7 @@ def analyze_results(res_file, ann_file, res_types, out_dir):
             copy.deepcopy(cocoGt), copy.deepcopy(cocoDt), iou_type)
         cocoEval.params.imgIds = imgIds
         cocoEval.params.iouThrs = [.75, .5, .1]
-        cocoEval.params.maxDets = [100]
+        cocoEval.params.maxDets = [max_det]
         cocoEval.evaluate()
         cocoEval.accumulate()
         ps = cocoEval.eval['precision']
@@ -131,7 +131,7 @@ def analyze_results(res_file, ann_file, res_types, out_dir):
         catIds = cocoGt.getCatIds()
         recThrs = cocoEval.params.recThrs
         with Pool(processes=48) as pool:
-            args = [(k, cocoDt, cocoGt, catId, iou_type)
+            args = [(k, cocoDt, cocoGt, catId, iou_type, max_det)
                     for k, catId in enumerate(catIds)]
             analyze_results = pool.starmap(analyze_individual_category, args)
         for k, catId in enumerate(catIds):
@@ -163,8 +163,10 @@ def main():
         help='annotation file path')
     parser.add_argument(
         '--types', type=str, nargs='+', default=['bbox'], help='result types')
+    parser.add_argument(
+        '--max_det', type=int, default=100)
     args = parser.parse_args()
-    analyze_results(args.result, args.ann, args.types, out_dir=args.out_dir)
+    analyze_results(args.result, args.ann, args.types, out_dir=args.out_dir, max_det=args.max_det)
 
 
 if __name__ == '__main__':

@@ -220,7 +220,7 @@ def ciou_loss(pred, target, eps=1e-7):
 
 @mmcv.jit(derivate=True, coderize=True)
 @weighted_loss
-def wasserstein_loss(pred, target, eps=1e-7, mode='exp', gamma=1):
+def wasserstein_loss(pred, target, eps=1e-7, mode='exp', gamma=1, constant=12.8):
     r"""`Implementation of paper `Enhancing Geometric Factors into
     Model Learning and Inference for Object Detection and Instance
     Segmentation <https://arxiv.org/abs/2005.03572>`_.
@@ -252,7 +252,7 @@ def wasserstein_loss(pred, target, eps=1e-7, mode='exp', gamma=1):
     wasserstein_2 = center_distance + wh_distance
 
     if mode == 'exp':
-        normalized_wasserstein = torch.exp(-torch.sqrt(wasserstein_2)/12.8)
+        normalized_wasserstein = torch.exp(-torch.sqrt(wasserstein_2)/constant)
         wloss = 1 - normalized_wasserstein
     
     if mode == 'sqrt':
@@ -489,13 +489,14 @@ class CIoULoss(nn.Module):
 @LOSSES.register_module()
 class WassersteinLoss(nn.Module):
 
-    def __init__(self, eps=1e-6, reduction='mean', loss_weight=1.0, mode='exp', gamma=2):
+    def __init__(self, eps=1e-6, reduction='mean', loss_weight=1.0, mode='exp', gamma=2, constant=12.8):
         super(WassersteinLoss, self).__init__()
         self.eps = eps
         self.reduction = reduction
         self.loss_weight = loss_weight
         self.mode = mode
         self.gamma = gamma
+        self.constant = constant    # constant = 12.8 for AI-TOD
 
     def forward(self,
                 pred,
@@ -524,6 +525,7 @@ class WassersteinLoss(nn.Module):
             avg_factor=avg_factor,
             mode=self.mode,
             gamma=self.gamma,
+            constant=self.constant,
             **kwargs)
         return loss
 

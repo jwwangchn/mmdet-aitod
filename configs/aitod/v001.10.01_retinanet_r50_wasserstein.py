@@ -1,7 +1,7 @@
 """
 retinanet with normalized wasserstein
 
-Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.084
+Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=1500 ] = 0.092
 Average Precision  (AP) @[ IoU=0.25      | area=   all | maxDets=1500 ] = -1.000
 Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.249
 Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1500 ] = 0.050
@@ -20,6 +20,25 @@ Optimal LRP             @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.914
 Optimal LRP Loc         @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.326
 Optimal LRP FP          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.658
 Optimal LRP FN          @[ IoU=0.50      | area=   all | maxDets=1500 ] = 0.687
+# Class-specific LRP-Optimal Thresholds # 
+ [0.053 0.282 0.312 0.331 0.065 0.351 0.308 0.078]
+
++----------+-------+---------------+-------+--------------+-------+
+| category | AP    | category      | AP    | category     | AP    |
++----------+-------+---------------+-------+--------------+-------+
+| airplane | 0.000 | bridge        | 0.069 | storage-tank | 0.178 |
+| ship     | 0.286 | swimming-pool | 0.001 | vehicle      | 0.161 |
+| person   | 0.043 | wind-mill     | 0.001 | None         | None  |
++----------+-------+---------------+-------+--------------+-------+
+
++----------+-------+---------------+-------+--------------+-------+
+| category | oLRP  | category      | oLRP  | category     | oLRP  |
++----------+-------+---------------+-------+--------------+-------+
+| airplane | 0.999 | bridge        | 0.929 | storage-tank | 0.844 |
+| ship     | 0.733 | swimming-pool | 0.997 | vehicle      | 0.855 |
+| person   | 0.954 | wind-mill     | 0.997 | None         | None  |
++----------+-------+---------------+-------+--------------+-------+
+
 """
 
 _base_ = [
