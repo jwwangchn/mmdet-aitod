@@ -29,7 +29,7 @@ class AITODDataset(CocoDataset):
                  proposal_nums=(100, 300, 1500),
                  iou_thrs=None,
                  metric_items=None,
-                 with_lrp=True):
+                 with_lrp=False):
         """Evaluation in COCO protocol.
 
         Args:
